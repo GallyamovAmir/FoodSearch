@@ -2,7 +2,62 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="search-container">
+    <input type="text" class="search-input" placeholder="Поиск...">
+    <button class="search-button"></button>
 </div>
+
+
+<!-- Модальное окно -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <!-- Занимает 1.5/5 экрана по ширине -->
+        <form class="modal-content" autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Авторизация</h5> <!-- Заголовок Авторизация -->
+            </div>
+            <div class="modal-body">
+                <!-- Поля ввода логина и пароля -->
+                <div class="Login-Inputs mb-5">
+                    <input type="text" name="loginInput" class="form-control" placeholder="Логин..." required> <!-- Расстояние между полями ввода -->
+                    <input type="password" name="PasswordInput" class="form-control" placeholder="Пароль..." required> <!-- Расстояние между полями ввода -->
+                </div>
+               
+                <!-- Кнопка Войти и кнопка Регистрация -->
+                <div class="Login-Buttons mb-3">
+                    <button type="submit" formaction='@Url.Action("Login", "Home")' class="button-success btn">Войти</button> <!-- Расстояние между кнопками -->
+                    <button type="button" class="button-continue btn" onclick="openRegisterModal()">Регистрация</button>
+                </div>
+              
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@* окно регистрации *@
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Регистрация</h5>
+            </div>
+            <div class="modal-body" id="registerModalBodyStep1">
+                <h6>Шаг 1/2</h6>
+                <input type="text" id="inn" class="form-control mb-3" oninput="this.value = this.value.replace(/\D/g, '')" maxlength="10" placeholder="ИНН*" required>
+                <button type="submit" id="continueButton" class="btn form-control" onclick="openStep2()" disabled>Продолжить</button>
+            </div>
+            <div class="modal-body d-none" id="registerModalBodyStep2">
+                <h6>Шаг 2/2</h6>
+                <input type="text" id="FIO" class="form-control mb-3" placeholder="ФИО Представителя*" required>
+                <input type="text" id="E-mail" class="form-control mb-3" placeholder="E-mail организации*" required>
+                <input type="password" id="password" class="form-control mb-3" placeholder="Пароль*" required>
+                <input type="password" id="confirmPassword" class="form-control mb-3" placeholder="Повторите пароль*" required>
+                <button type="submit" id="finishRegistrationButton" class="auth form-control mb-3" onclick="finishRegistration()" disabled>Завершить регистрацию</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

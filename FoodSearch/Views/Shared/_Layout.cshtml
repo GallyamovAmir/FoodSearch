@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FoodSearch.styles.css" asp-append-version="true" />
+
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
@@ -22,29 +23,49 @@
                         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FoodSearch</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Поиск</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Сервис сравнения цен на продукты</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Фиксация</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">ФудСерч Pro</a>
-                    </li>
-
                 </ul>
+
                 <ul class="navbar-nav flex-grow-1 d-flex flex-row-reverse">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Войти</a>
-                    </li>
-                  @*   <li class="nav-item">
-                        <form id="logoutForm" asp-area="" asp-controller="Account" asp-action="Logout" method="post">
-                            <button type="submit" class="nav-link btn btn-link text-dark">Log out</button>
-                        </form>
-                    </li> *@
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <button class="login-button" data-bs-toggle="modal" data-bs-target="#loginModal">Войти</button>
+                        </li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <div class="user-profile">
+                                <div class="user-initial">A</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <button class="hamburger-button" aria-label="Открыть меню">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </li>
+
+                        <div class="hamburger-menu-content">
+                            <div class="user-profile">
+                                <div class="user-initial">A</div>
+                            </div>
+                            <button class="close-menu-btn">&times;</button>
+                            <ul class="menu-links">
+                                <li><a href="#">Личный кабинет</a></li>
+                                <li><a href="#">ФудСерч Pro</a></li>
+                                <li><a href="#">Фиксация</a></li>
+                                <li><a href="#">Аналитика</a></li>
+                                <li><a href="#">Выход</a></li>
+                            </ul>
+                        </div>
+                    }
                 </ul>
             </div>
         </div>
     </nav>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
