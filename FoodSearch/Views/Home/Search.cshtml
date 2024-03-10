@@ -1,0 +1,36 @@
+﻿@model List<FoodSearch.Models.Product>
+@{
+    ViewData["Title"] = "Search";
+}
+
+
+<main>
+    <form method="get" action="@Url.Action("Search", "Home")">
+        <div class="searchpage-container">
+            <input type="text" id="query" name="query" class="search-input" placeholder="Поиск...">
+            <button type="submit" formaction='@Url.Action("Search", "Home")' class="search-button"></button>
+        </div>
+    </form>
+
+
+    <div class="product-container">
+        @foreach (var product in Model)
+        {
+            <div class="card">
+                <div class="left-block">
+                    <img src="@product.ImageSource" alt="Product Image" class="product-image">
+                </div>
+                <div class="center-block">
+                    <h5>@product.Name</h5>
+                    <p><a href="@product.Url">@product.Url</a></p>
+                </div>
+                <div class="right-block">
+                    <p class="price">Цена: @product.Price</p>
+                    <a href="@product.Url"><button class="buy-button">Купить</button></a>
+                </div>
+            </div>
+
+        }
+    </div>
+
+</main>

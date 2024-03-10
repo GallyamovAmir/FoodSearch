@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Second Step";
+}
+
+
+<div class="modal fade show" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Регистрация</h5>
+            </div>
+            <form class="modal-body" id="registerModalBodyStep2">
+                <h6>Шаг 2/2</h6>
+                <input type="text" name="ogrn"  class="form-control mb-3" value="@ViewBag.OGRN"  readonly>
+                <input type="text" class="form-control mb-3" value="@ViewBag.OrganizationName" readonly>
+                <input type="text" id="FIO" name="FIO" class="form-control mb-3" placeholder="ФИО Представителя*" required>
+                <input type="password" id="password" name="password" class="form-control mb-3" placeholder="Пароль*" required>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control mb-3" placeholder="Повторите пароль*" required>
+                <button type="submit" id="finishRegistrationButton" formaction='@Url.Action("SecondStep", "Home")' class="auth form-control mb-3" onclick="finishRegistration()" disabled>Завершить регистрацию</button>
+            </form>
+        </div>
+    </div>
+</div>

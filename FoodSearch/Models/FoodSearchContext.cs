@@ -81,10 +81,10 @@ public partial class FoodSearchContext : DbContext
 
             entity.Property(e => e.EMail)
                 .HasMaxLength(50)
-                .HasColumnName("E-mail");
-            entity.Property(e => e.Inn)
+                .HasColumnName("Email");
+            entity.Property(e => e.OGRN)
                 .HasMaxLength(50)
-                .HasColumnName("INN");
+                .HasColumnName("OGRN");
             entity.Property(e => e.Name).HasMaxLength(50);
         });
 
@@ -93,11 +93,11 @@ public partial class FoodSearchContext : DbContext
             entity.ToTable("Product");
 
             entity.Property(e => e.Description).HasMaxLength(200);
-            entity.Property(e => e.ImageSource).HasMaxLength(100);
-            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.ImageSource).HasMaxLength(150);
+            entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Price).HasColumnType("money");
             entity.Property(e => e.Url)
-                .HasMaxLength(100)
+                .HasMaxLength(150)
                 .HasColumnName("URL");
 
             entity.HasOne(d => d.Factoty).WithMany(p => p.Products)

@@ -46,6 +46,24 @@ body {
     align-items: center;
 }
 
+
+.searchpage-container {
+    width: 60%; /* занимает 3/5 экрана по ширине */
+    margin: auto; /* автоматическое выравнивание по горизонтали */
+    position: fixed;
+    top: 10%; /* располагается сверху */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #EFFFFA;
+    border-radius: 20px;
+    padding: 10px;
+    border: 3px solid #80E645;
+    height: 50px; /* средние значения по высоте */
+    display: flex;
+    align-items: center;
+}
+
+
 .search-input {
     width: calc(100% - 40px);
     border: none;
@@ -83,7 +101,6 @@ body {
     color: #858585; /* цвет текста */
     font-family: "Roboto", sans-serif; /* указываем шрифт */
     font-style: normal; /* стиль шрифта */
-    font-weight: medium; /* свойство шрифта */
     font-size: 18px; /* размер шрифта */
     text-align: center; /* выравнивание текста по центру */
     cursor: pointer;
@@ -155,34 +172,23 @@ input, button {
 }
 
 
-/* Стили для кружка с буквой */
-.user-profile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #ccc;
-    margin-right: 10px;
-}
-
-.user-initial {
-    font-size: 20px;
-}
-
 /* Стили для гамбургер-меню */
 .hamburger-menu-content {
-    position: fixed;
-    top: 0;
-    right: -250px;
-    width: 250px;
-    height: 100%;
+    position: absolute;
+    top: 100%; /* расположим меню под кнопкой */
+    right: 0;
+    width: 200px;
     background-color: #fff;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    transition: right 0.3s ease;
-    z-index: 9999;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* тень */
+    z-index: 1; /* установим позиционирование над всеми элементами */
+    display: none; /* изначально скроем меню */
 }
+
+    .hamburger-menu-content.open {
+        display: block; /* при добавлении класса open отобразим меню */
+    }
+
+
 
 .menu-links {
     padding: 20px;
@@ -206,3 +212,80 @@ input, button {
     .close-menu-btn:focus {
         outline: none;
     }
+
+.user-profile, .hamburger-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+    .user-profile .user-initial, .hamburger-button .navbar-toggler-icon {
+        font-size: 20px;
+    }
+
+.user-initial {
+    background-color: #80E645;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; /* Центрируем по вертикали */
+    width: 80%;
+    margin: 150px auto;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    gap: 10px;
+    width: 100%; /* Чтобы карточки занимали всю доступную ширину */
+}
+
+.left-block, .right-block {
+    width: 10%;
+}
+
+.center-block {
+    width: 80%;
+}
+
+.product-image {
+    max-width: 100px;
+    border-radius: 5px;
+}
+
+.price {
+    font-weight: bold;
+    color: black;
+}
+
+.buy-button {
+    background-color: #5CAF2C;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
+

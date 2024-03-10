@@ -7,7 +7,7 @@ public partial class Organization
 {
     public int Id { get; set; }
 
-    public string Inn { get; set; } = null!;
+    public string OGRN { get; set; } = null!;
 
     public string Name { get; set; } = null!;
 

@@ -1,81 +1,76 @@
-﻿function openRegisterModal() {
+﻿// Функция для открытия модального окна регистрации
+function openRegisterModal() {
     $('#loginModal').modal('hide'); // Закрыть текущее модальное окно авторизации
     $('#registerModal').modal('show'); // Открыть модальное окно регистрации
 }
 
+// Функция для перехода ко второму шагу регистрации
 function openStep2() {
     $('#registerModalBodyStep1').addClass('d-none'); // Скрыть содержимое первого шага
     $('#registerModalBodyStep2').removeClass('d-none'); // Показать содержимое второго шага
 }
 
+// Функция для завершения регистрации
 function finishRegistration() {
-    
+    // Ваша логика завершения регистрации здесь
 }
 
+// Обработчик события при открытии модального окна регистрации
 $('#registerModal').on('show.bs.modal', function (e) {
     $('#registerModalBodyStep1').removeClass('d-none'); // Показать первый шаг
     $('#registerModalBodyStep2').addClass('d-none'); // Скрыть второй шаг
 });
 
-$(document).ready(function () {
-    $('#inn').on('keyup', function () {
-        // Получаем количество символов в поле ввода ИНН
-        var innLength = $(this).val().trim().length;
+// Обработчик события при вводе ОГРН
+$('#OGRN').on('keyup', function () {
+    // Получаем количество символов в поле ввода ОГРН
+    var OGRNLength = $(this).val().trim().length;
 
-        // Если количество символов равно 10, удаляем атрибут disabled у кнопки Продолжить, иначе добавляем его
-        if (innLength === 10) {
-            $('#continueButton').prop('disabled', false);
-        } else {
-            $('#continueButton').prop('disabled', true);
-        }
-    });
+    // Если количество символов равно 13, удаляем атрибут disabled у кнопки Продолжить, иначе добавляем его
+    if (OGRNLength === 13) {
+        $('#continueButton').prop('disabled', false);
+    } else {
+        $('#continueButton').prop('disabled', true);
+    }
 });
 
-$(document).ready(function () {
-    // Функция для проверки совпадения пароля и его подтверждения
-    function passwordsMatch() {
-        var password = $('#password').val();
-        var confirmPassword = $('#confirmPassword').val();
-        return password === confirmPassword;
-    }
+// Функция для проверки совпадения пароля и его подтверждения
+function passwordsMatch() {
+    var password = $('#password').val();
+    var confirmPassword = $('#confirmPassword').val();
+    return password === confirmPassword;
+}
 
-    // Функция для проверки заполненности полей
-    function fieldsNotEmpty() {
-        var fio = $('#FIO').val();
-        var email = $('#E-mail').val();
-        var password = $('#password').val();
-        var confirmPassword = $('#confirmPassword').val();
-        return fio !== '' && email !== '' && password !== '' && confirmPassword !== '';
-    }
+// Функция для проверки заполненности полей
+function fieldsNotEmpty() {
+    var fio = $('#FIO').val();
+    var email = $('#E-mail').val();
+    var password = $('#password').val();
+    var confirmPassword = $('#confirmPassword').val();
+    return fio !== '' && email !== '' && password !== '' && confirmPassword !== '';
+}
 
-    // Функция для обновления состояния кнопки "Завершить регистрацию"
-    function updateButtonState() {
-        var buttonDisabled = !(passwordsMatch() && fieldsNotEmpty());
-        $('#finishRegistrationButton').prop('disabled', buttonDisabled);
-    }
+// Функция для обновления состояния кнопки "Завершить регистрацию"
+function updateButtonState() {
+    var buttonDisabled = !(passwordsMatch() && fieldsNotEmpty());
+    $('#finishRegistrationButton').prop('disabled', buttonDisabled);
+}
 
-    // Обновляем состояние кнопки при изменении значений в полях ввода
-    $('#FIO, #E-mail, #password, #confirmPassword').on('input', function () {
-        updateButtonState();
-    });
-
-    // Обновляем состояние кнопки при загрузке страницы
+// Обновляем состояние кнопки при изменении значений в полях ввода
+$('#FIO, #E-mail, #password, #confirmPassword').on('input', function () {
     updateButtonState();
 });
 
-$(document).ready(function () {
-    $('.hamburger-button').click(function () {
-        $('.hamburger-menu-content').toggleClass('menu-open');
-    });
+// Обновляем состояние кнопки при загрузке страницы
+updateButtonState();
 
-    $('.close-menu-btn').click(function () {
-        $('.hamburger-menu-content').removeClass('menu-open');
-    });
+// Обработчик клика по кнопке "Гамбургер"
+$('.hamburger-button').on('click', function () {
+    $('.hamburger-menu-content').toggleClass('open'); // Переключаем класс open
 });
 
-
-
-
-
-
+// Обработчик клика по кнопке закрытия меню
+$('.close-menu-btn').on('click', function () {
+    $('.hamburger-menu-content').removeClass('open'); // Закрываем меню при нажатии на кнопку закрытия
+});
 
