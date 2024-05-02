@@ -2,20 +2,17 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodSearch.Controllers
 {
     public class AccountController : BaseController
     {
         private readonly FoodSearchContext _context;
-        private readonly UserManager<User> _userManager;
 
-        public AccountController(FoodSearchContext context, UserManager<User> userManager)
+        public AccountController(FoodSearchContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         [Authorize]
@@ -37,26 +34,29 @@ namespace FoodSearch.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Profile()
+        public IActionResult Profile()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-
-            // Получение данных пользователя
-            var userId = currentUser.Id;
-            var userName = currentUser.FullName;
-            var organization = currentUser.Organization;
-            var subscription = currentUser.Subscription;
-
-            // Передача данных пользователя в представление
-            var model = new User
+            string username = ViewBag.UserName;
+            var user = _context.Users.FirstOrDefault(u => u.FullName == username);
+           
+            if (user != null)
             {
-                Id = userId,
-                FullName = userName,
-                Organization = organization,
-                Subscription = subscription
-            };
+                var organization = _context.Organizations.Where(o => o.Id == user.OrganizationId).FirstOrDefault();
+                var subscription = _context.Subscriptions.Where(s => s.Id == user.SubscriptionId).FirstOrDefault();
 
-            return View(model);
+                ViewBag.UserFullName = user.FullName;
+                ViewBag.UserId = user.Id;
+
+                ViewBag.OrganizationName = organization?.Name;
+                ViewBag.OrganizationOGRN = organization?.OGRN;
+                ViewBag.OrganizationEmail = organization?.EMail;
+
+                ViewBag.SubscriptionName = subscription?.Name;
+                ViewBag.SubscriptionDescription = subscription?.Description;
+                // и т.д.
+            }
+
+            return View();
         }
     }
 }

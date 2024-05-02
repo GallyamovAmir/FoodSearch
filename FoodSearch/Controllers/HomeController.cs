@@ -49,7 +49,7 @@ namespace FoodSearch.Controllers
             var html = @"https://spark-interfax.ru/search?Query=" + OGRN;
             _logger.LogInformation($"Attempting to load HTML from: {html}");
 
-            HtmlWeb web = new HtmlWeb();
+            HtmlWeb web = new();
             var htmlDoc = web.Load(html);
 
             if (htmlDoc == null)
@@ -131,7 +131,7 @@ namespace FoodSearch.Controllers
         /// <returns></returns>
         public IActionResult SecondStep(string? ogrn, string? FIO, string? password, string? confirmPassword)
         {
-            string OGRN = ogrn;
+            string? OGRN = ogrn;
             _logger.LogInformation($"Received OGRN: {OGRN}, FIO: {FIO}");
 
             // ѕровер€ем наличие организации в базе данных
@@ -229,7 +229,7 @@ namespace FoodSearch.Controllers
         }
 
         // ћетод дл€ парсинга первого сайта
-        private List<Product> MetroParser(string query)
+        private List<Product>? MetroParser(string query)
         {
             var encodedQuery = Uri.EscapeDataString(query);
             var url = $"https://online.metro-cc.ru/search?q={encodedQuery}";

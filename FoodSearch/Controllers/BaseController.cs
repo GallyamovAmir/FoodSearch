@@ -16,7 +16,7 @@ namespace FoodSearch.Controllers
             var usernameClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
             if (usernameClaim != null)
             {
-                ViewBag.UserName = usernameClaim;
+                ViewBag.UserName = usernameClaim.Value;
                 ViewBag.UserInitial = usernameClaim.Value[..2].ToUpper();
             }
         }

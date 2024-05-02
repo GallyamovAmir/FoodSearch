@@ -10,14 +10,12 @@ namespace FoodSearch.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private readonly ILogger<AuthenticationController> _logger;
 
         private readonly FoodSearchContext _context;
 
 
-        public AuthenticationController(ILogger<AuthenticationController> logger, FoodSearchContext context)
+        public AuthenticationController(FoodSearchContext context)
         {
-            _logger = logger;
             _context = context;
         }
 

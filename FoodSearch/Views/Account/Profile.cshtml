@@ -1,11 +1,24 @@
-﻿@model List<FoodSearch.Models.User>
-@{
-    ViewData["Title"] = "Профиль";
+﻿@{
+    ViewData["Title"] = "Личный кабинет";
 }
 
 <main>
-    <div class="user-profile">
-       
-    </div>
-   
+    <h1>Личный кабинет</h1>
+
+
+    <p>Личные данные</p>
+    <input value="@ViewBag.UserId" class="form-control mb-3" readonly>
+    <input value="@ViewBag.UserFullName" class="form-control mb-3" readonly>
+
+
+
+    <p>Организация</p>
+    <input value="@ViewBag.OrganizationName" class="form-control mb-3" readonly>
+    <input value="@ViewBag.OrganizationOGRN" class="form-control mb-3" readonly>
+    <input value="@ViewBag.OrganizationEmail" class="form-control mb-3" readonly>
+
+    <p>Подписка</p>
+    <input value="@ViewBag.SubscriptionnName" class="form-control mb-3" readonly>
+    <input value="@ViewBag.SubscriptionDescription" class="form-control mb-3" readonly>
 </main>
+
