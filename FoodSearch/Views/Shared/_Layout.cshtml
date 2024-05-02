@@ -54,9 +54,7 @@
                                 <li><a asp-area="" asp-controller="Account" asp-action="Profile">Личный кабинет</a></li>
                                 <li><a asp-area="" asp-controller="Account" asp-action="Subscription">ФудСерч Pro</a></li>
                                 <li><a asp-area="" asp-controller="Account" asp-action="Fixation">Фиксация</a></li>
-                                <li><a asp-area="" asp-controller="Account" asp-action="Analytics">Аналитика</a></li>
                                 <li><a asp-area="" asp-controller="Home" asp-action="Search">Поиск</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Политика безопасности</a></li>
                                 <li>
                                     <form id="logoutForm" asp-area="" asp-controller="Authentication" asp-action="Logout" method="post">
                                         <button type="submit" class="nav-link btn btn-link text-dark">Log out</button>
@@ -70,10 +68,51 @@
         </div>
     </nav>
 
+    <!-- Модальное окно -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <!-- Занимает 1.5/5 экрана по ширине -->
+            <form class="modal-content" autocomplete="on" method="post" asp-controller="Authentication" asp-action="Login">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Авторизация</h5> <!-- Заголовок Авторизация -->
+                </div>
+                <div class="modal-body">
+                    <!-- Поля ввода логина и пароля -->
+                    <div class="Login-Inputs mb-5">
+                        <input type="text" name="loginInput" class="form-control" placeholder="Логин..." required> <!-- Расстояние между полями ввода -->
+                        <input type="password" name="PasswordInput" class="form-control" placeholder="Пароль..." required> <!-- Расстояние между полями ввода -->
+                    </div>
+
+                    <!-- Кнопка Войти и кнопка Регистрация -->
+                    <div class="Login-Buttons mb-3">
+                        <button type="submit" formaction='@Url.Action("Login", "Authentication")' class="button-success btn">Войти</button> <!-- Расстояние между кнопками -->
+                        <button type="button" class="button-continue btn" onclick="openRegisterModal()">Регистрация</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Регистрация</h5>
+                </div>
+                <form class="modal-body" id="registerModalBodyStep1">
+                    <h6>Шаг 1/2</h6>
+                    <input type="text" id="OGRN" name="OGRN" class="form-control mb-3" oninput="this.value = this.value.replace(/\D/g, '')" maxlength="13" placeholder="ОГРН*" required>
+                    <input type="text" id="UserEmail" name="UserEmail" class="form-control mb-3" placeholder="E-mail организации*" required>
+                    <button type="submit" id="continueButton" formaction='@Url.Action("FirstStep", "Home")' class="btn form-control" onclick="openStep2()" disabled>Продолжить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
 
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main">
             @RenderBody()
         </main>
     </div>

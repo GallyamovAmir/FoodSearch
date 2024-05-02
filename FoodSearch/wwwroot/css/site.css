@@ -1,23 +1,24 @@
 ﻿html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 body {
     background-color: #EFFFFA;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 
@@ -27,7 +28,7 @@ p {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 .search-container {
@@ -219,7 +220,6 @@ input, button {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
     .user-profile .user-initial, .hamburger-button .navbar-toggler-icon {
@@ -242,10 +242,17 @@ input, button {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-content: flex-start;
     align-items: center; /* Центрируем по вертикали */
     width: 80%;
-    margin: 150px auto;
+    margin: 120px auto;
+    overflow-y: scroll;
+    height: 600px;
 }
+
+    .product-container::-webkit-scrollbar {
+        display: none;
+    }
 
 .card {
     display: flex;
@@ -286,6 +293,3 @@ input, button {
     padding: 5px 10px;
     cursor: pointer;
 }
-
-
-

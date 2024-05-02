@@ -187,8 +187,11 @@ namespace FoodSearch.Controllers
 
         public IActionResult Search(string? query)
         {
+            var searchTerms = query.ToLower().Split(' ');
             // Поиск товаров в базе данных по названию
-            var products = _context.Products.Where(p => p.Name.ToLower().Contains(query.ToLower())).ToList();
+            var products = _context.Products
+    .Where(p => searchTerms.All(term => p.Name.ToLower().Contains(term)))
+    .ToList();
 
             // Если товары найдены в базе данных, передайте их в представление
             if (products.Any())

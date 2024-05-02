@@ -14,23 +14,33 @@
 
 
     <div class="product-container">
-        @foreach (var product in Model)
-        {
-            <div class="card">
-                <div class="left-block">
-                    <img src="@product.ImageSource" alt="Product Image" class="product-image">
-                </div>
-                <div class="center-block">
-                    <h5>@product.Name</h5>
-                    <p><a href="@product.Url">@product.Url</a></p>
-                </div>
-                <div class="right-block">
-                    <p class="price">Цена: @product.Price</p>
-                    <a href="@product.Url"><button class="buy-button">Купить</button></a>
-                </div>
-            </div>
-
+        @{
+            if (Model != null)
+            {
+                @foreach (var product in Model)
+                {
+                    <div class="card">
+                        <div class="left-block">
+                            <img src="@product.ImageSource" alt="Product Image" class="product-image">
+                        </div>
+                        <div class="center-block">
+                            <h5>@product.Name</h5>
+                            <p><a target="_blank"  href="@product.Url">@product.Url</a></p>
+                        </div>
+                        <div class="right-block">
+                            <p class="price">Цена: @product.Price</p>
+                            <a target="_blank"  href="@product.Url"><button class="buy-button">Купить</button></a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Поиск не дал результатов, попробуйте снова</p>
+            }
         }
+
+
     </div>
 
 </main>
