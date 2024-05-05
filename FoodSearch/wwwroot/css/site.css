@@ -293,3 +293,37 @@ input, button {
     padding: 5px 10px;
     cursor: pointer;
 }
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    min-width: 40%;
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+}
+
+.Mobile-Error {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.Mobile-Error-Container {
+    text-align: center;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

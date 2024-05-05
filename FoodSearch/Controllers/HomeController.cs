@@ -25,7 +25,7 @@ namespace FoodSearch.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult MobileError()
         {
             return View();
         }

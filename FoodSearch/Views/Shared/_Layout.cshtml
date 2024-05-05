@@ -14,11 +14,6 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
         <div class="container-fluid position-relative">
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
@@ -51,10 +46,9 @@
 
                         <div class="hamburger-menu-content">
                             <ul class="menu-links">
-                                <li><a asp-area="" asp-controller="Account" asp-action="Profile">Личный кабинет</a></li>
-                                <li><a asp-area="" asp-controller="Account" asp-action="Subscription">ФудСерч Pro</a></li>
-                                <li><a asp-area="" asp-controller="Account" asp-action="Fixation">Фиксация</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Search">Поиск</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Личный кабинет</a></li>
+                                <li><a class="nav-link text-dark"  asp-area="" asp-controller="Account" asp-action="Subscription">ФудСерч Pro</a></li>
+                                <li><a class="nav-link text-dark"  asp-area="" asp-controller="Account" asp-action="Fixation">Фиксация</a></li>
                                 <li>
                                     <form id="logoutForm" asp-area="" asp-controller="Authentication" asp-action="Logout" method="post">
                                         <button type="submit" class="nav-link btn btn-link text-dark">Log out</button>
