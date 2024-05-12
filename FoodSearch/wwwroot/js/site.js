@@ -74,3 +74,42 @@ $('.close-menu-btn').on('click', function () {
     $('.hamburger-menu-content').removeClass('open'); // Закрываем меню при нажатии на кнопку закрытия
 });
 
+
+// Обработчик события при открытии модального окна
+$('#acceptAddition').on('show.bs.modal', function (event) {
+    // Получаем кнопку "Добавить", по которой было совершено нажатие
+    var button = $(event.relatedTarget);
+
+    // Извлекаем данные о товаре из атрибутов кнопки
+    var productName = button.data('product-name');
+    var productPrice = button.data('product-price');
+    var productImage = button.data('product-image');
+    var productId = button.data('product-id');
+
+    // Отображаем информацию о товаре в модальном окне
+    $('#productTitle').text(productName);
+    $('#productName').val(productName);
+    $('#productPrice').val(productPrice);
+    $('#productId').val(productId);
+    $('#productImage').attr('src', productImage);
+});
+
+// Добавим обработчик для кнопок "Добавить", чтобы получить информацию о товаре
+$('#acceptAddition').click(function () {
+    var productName = $(this).data('product-name');
+    var productPrice = $(this).data('product-price');
+    var productImage = $(this).data('product-image');
+    var productId = $(this).data('product-id'); // Исправлено здесь
+
+    // Отображаем информацию о товаре в модальном окне
+    $('#productTitle').text(productName);
+    $('#productName').val(productName);
+    $('#productPrice').val(productPrice);
+    $('#productId').val(productId);
+    $('#productImage').attr('src', productImage);
+
+    // Открываем модальное окно
+    $('#acceptAddition').modal('show');
+});
+
+

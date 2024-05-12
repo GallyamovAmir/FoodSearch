@@ -1,13 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Главная";
 }
+<div class="search-form">
+    <form method="get" style="width: 800px;"  action="@Url.Action("Search", "Home")">
+        <div class="search-container">
+            <input type="text" id="query" name="query" class="search-input" placeholder="Поиск...">
+            <button type="submit" formaction='@Url.Action("Search", "Home")' class="search-button"></button>
+        </div>
+    </form>
+</div>
 
-<form method="get" action="@Url.Action("Search", "Home")">
-    <div class="search-container">
-        <input type="text" id="query" name="query" class="search-input" placeholder="Поиск...">
-        <button type="submit" formaction='@Url.Action("Search", "Home")' class="search-button"></button>
-    </div>
-</form>
 
 
 

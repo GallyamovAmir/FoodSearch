@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 namespace FoodSearch
 {
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-    public class MobileDeviceMiddleware
+    public class MobileDeviceMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        private readonly RequestDelegate _next = next;
         private bool _redirected = false;
-
-        public MobileDeviceMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
 
         public async Task Invoke(HttpContext httpContext)
         {

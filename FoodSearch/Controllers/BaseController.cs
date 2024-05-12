@@ -17,8 +17,11 @@ namespace FoodSearch.Controllers
             if (usernameClaim != null)
             {
                 ViewBag.UserName = usernameClaim.Value;
+
                 ViewBag.UserInitial = usernameClaim.Value[..2].ToUpper();
             }
+
+
         }
     }
 }

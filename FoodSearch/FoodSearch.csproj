@@ -7,7 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\icons\fixation.png" />
+    <None Include="wwwroot\images\icons\logout.png" />
+    <None Include="wwwroot\images\icons\profile.png" />
+    <None Include="wwwroot\images\icons\search.png" />
+    <None Include="wwwroot\images\icons\settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DeviceDetector.NET" Version="6.3.0" />
+    <PackageReference Include="EPPlus" Version="7.1.2" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />

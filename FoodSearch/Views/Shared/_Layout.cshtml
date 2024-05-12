@@ -12,56 +12,6 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
-        <div class="container-fluid position-relative">
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FoodSearch</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Сервис сравнения цен на продукты</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav flex-grow-1 d-flex flex-row-reverse">
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <button class="login-button" data-bs-toggle="modal" data-bs-target="#loginModal">Войти</button>
-                        </li>
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    { 
-
-                        <li class="nav-item">
-                            <button class="hamburger-button" aria-label="Открыть меню">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <div class="user-profile">
-                                <div id="user-avatar" class="user-initial">@ViewBag.UserInitial</div>
-                            </div>
-                        </li>
-
-                        <div class="hamburger-menu-content">
-                            <ul class="menu-links">
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Личный кабинет</a></li>
-                                <li><a class="nav-link text-dark"  asp-area="" asp-controller="Account" asp-action="Subscription">ФудСерч Pro</a></li>
-                                <li><a class="nav-link text-dark"  asp-area="" asp-controller="Account" asp-action="Fixation">Фиксация</a></li>
-                                <li>
-                                    <form id="logoutForm" asp-area="" asp-controller="Authentication" asp-action="Logout" method="post">
-                                        <button type="submit" class="nav-link btn btn-link text-dark">Log out</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                    }
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <!-- Модальное окно -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -106,14 +56,92 @@
 
 
     <div class="container">
-        <main role="main">
+        <div class="sidebar">
+            <div class="sidebar-header">
+
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="sidebar-header-item">
+                    <p style="font-size:24px; line-height:0;">FoodSearch</p>
+                    <p style="font-size:12px; margin: 0;">Сервис сравнения цен на продукты</p>
+                </a>
+
+            </div>
+            <div class="sidebar-navigation">
+                <a class="sidebar-navigation-item" asp-area="" asp-controller="Home" asp-action="Index">
+                    <div class="navigation-item-icon">
+                        <img src="/images/icons/search.png" />
+                    </div>
+                    <div class="navigation-item-text"> Поиск</div>
+                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @* <li class="sidebar-navigation-item">
+                <div class="user-profile">
+                <div id="user-avatar" class="user-initial">@ViewBag.UserInitial</div>
+                </div>
+                </li> *@
+                    <a class="sidebar-navigation-item" asp-area="" asp-controller="Account" asp-action="Profile">
+                        <div class="navigation-item-icon">
+                            <img src="/images/icons/profile.png" />
+                        </div>
+                        <div class="navigation-item-text"> Личный кабинет</div>
+
+                    </a>
+                    <a class="sidebar-navigation-item" asp-area="" asp-controller="Account" asp-action="Subscription">
+                        <div class="navigation-item-icon">
+                            <img src="/images/icons/subscription.png" />
+                        </div>
+                        <div class="navigation-item-text"> Подписка</div>
+                    </a>
+                    <a class="sidebar-navigation-item nav-link disabled" aria-disabled="true" asp-area="" asp-controller="" asp-action="">
+                        <div class="navigation-item-icon">
+                            <img src="/images/icons/stats.png" />
+                        </div>
+                        <div class="navigation-item-text"> Аналитика <br><span style="font-size:11px; color: rgb(21 128 61)">Скоро</span></div>
+                    </a>
+                    <a class="sidebar-navigation-item" asp-area="" asp-controller="Account" asp-action="Fixation">
+                        <div class="navigation-item-icon">
+                            <img src="/images/icons/fixation.png" />
+                        </div>
+                        <div class="navigation-item-text"> Фиксация</div>
+                    </a>
+
+                }
+            </div>
+            <div class="sidebar-footer">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <button data-bs-toggle="modal" data-bs-target="#loginModal" class="sidebar-footer-button">
+                        <div class="footer-button-item">
+                            <img src="/images/icons/logout.png" />
+                        </div>
+                        <div class="footer-button-item"> Войти</div>
+                    </button>
+
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form id="logoutForm" asp-area="" asp-controller="Authentication" asp-action="Logout" method="post">
+                        <button type="submit" class="sidebar-footer-button">
+                            <div class="footer-button-item">
+                                <img src="/images/icons/logout.png" />
+                            </div>
+                            <div class="footer-button-item"> Выйти</div>
+                        </button>
+                    </form>
+                }
+                &copy; 2024 - FoodSearch - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+
+        </div>
+        <main class="main-content" role="main">
+            <div class="content">
+            </div>
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - FoodSearch - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

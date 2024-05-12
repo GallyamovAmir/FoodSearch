@@ -9,17 +9,16 @@ using System.Linq;
 
 namespace FoodSearch.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController(ILogger<HomeController> logger, FoodSearchContext context) : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly FoodSearchContext _context;
+        private readonly ILogger<HomeController> _logger = logger;
+        private readonly FoodSearchContext _context = context;
 
-        public HomeController(ILogger<HomeController> logger, FoodSearchContext context)
+
+        public IActionResult Welcome()
         {
-            _logger = logger;
-            _context = context;
+            return View();
         }
-
         public IActionResult Index()
         {
             return View();
@@ -187,14 +186,23 @@ namespace FoodSearch.Controllers
 
         public IActionResult Search(string? query)
         {
-            var searchTerms = query.ToLower().Split(' ');
+
+            string username = ViewBag.UserName;
+            var user = _context.Users.FirstOrDefault(u => u.FullName == username);
+
+            if (user != null)
+            {
+
+                ViewBag.UserId = user.Id;
+            }
+                var searchTerms = query.ToLower().Split(' ');
             // Поиск товаров в базе данных по названию
             var products = _context.Products
     .Where(p => searchTerms.All(term => p.Name.ToLower().Contains(term)))
     .ToList();
 
             // Если товары найдены в базе данных, передайте их в представление
-            if (products.Any())
+            if (products.Count != 0)
             {
                 return View("Search", products);
             }
@@ -203,7 +211,7 @@ namespace FoodSearch.Controllers
                 // Если товары не найдены в базе данных, вызовите парсеры
                 var metroParserResult = MetroParser(query);
                 var selgrosParserResult = SelgrosParser(query);
-                if ((metroParserResult != null && metroParserResult.Any()) && (selgrosParserResult != null && selgrosParserResult.Any()))
+                if ((metroParserResult != null && metroParserResult.Count != 0) && (selgrosParserResult != null && selgrosParserResult.Count != 0))
                 {
                     // Обновляем базу данных
                     _context.Products.AddRange(metroParserResult);
@@ -261,11 +269,12 @@ namespace FoodSearch.Controllers
                         break; // Прерываем цикл после первого прохода
                     }
 
-                    var product = new Product();
-
-                    // Извлекаем данные о товаре из HTML узлов
-                    product.Name = productNode.SelectSingleNode(".//span[contains(@class, 'product-card-name__text')]")?.InnerText.Trim();
-                    product.ImageSource = productNode.SelectSingleNode(".//img[contains(@class, 'product-card-photo__image')]")?.GetAttributeValue("src", "");
+                    var product = new Product
+                    {
+                        // Извлекаем данные о товаре из HTML узлов
+                        Name = productNode.SelectSingleNode(".//span[contains(@class, 'product-card-name__text')]")?.InnerText.Trim(),
+                        ImageSource = productNode.SelectSingleNode(".//img[contains(@class, 'product-card-photo__image')]")?.GetAttributeValue("src", "")
+                    };
                     var metroBaseUrl = "https://online.metro-cc.ru";
                     product.Url = metroBaseUrl + (productNode.SelectSingleNode(".//a[contains(@class, 'product-card-photo__link')]")?.GetAttributeValue("href", "") ?? "");
                     var priceNode = productNode.SelectSingleNode(".//span[contains(@class, 'product-price__sum-rubles')]");

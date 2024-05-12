@@ -2,29 +2,36 @@
     ViewData["Title"] = "Личный кабинет";
 }
 
-    <div class="profile">
-    
-        <section class="profile-section">
-            <h4>Личные данные</h4>
-        <hr>
-            <label>Уникальный идектификатор <input value="@ViewBag.UserId" class="form-control mb-3" readonly></label>
-            <label>ФИО/Псевдоним <input value="@ViewBag.UserFullName" class="form-control mb-3" readonly></label>
-        </section>
-        
-        <section class="profile-section">
-            <h4>Организация</h4>
-        <hr>
-            <label>Название <input value="@ViewBag.OrganizationName" class="form-control mb-3" readonly></label>
-            <label>ОГРН <input value="@ViewBag.OrganizationOGRN" class="form-control mb-3" readonly></label>
-            <label>Почта <input value="@ViewBag.OrganizationEmail" class="form-control mb-3" readonly></label>
 
-        </section>
-    
-        <section class="profile-section">
-            <h4>Подписка</h4>
-        <hr>
-            <h5>@ViewBag.SubscriptionName</h5>
-            <p>@ViewBag.SubscriptionDescription</p>
-        </section>
+<div class="profile" >
+    <div class="page-title" style="margin-top:50px;">
+        <h1>Личный кабинет</h1>
     </div>
+    <section class="profile-section">
+        <h4>Личные данные</h4>
+        <hr>
+        <label>Уникальный идектификатор <input value="@ViewBag.UserId" class="form-control mb-3" readonly></label>
+        <label>ФИО/Псевдоним <input value="@ViewBag.UserFullName" class="form-control mb-3" readonly></label>
+    </section>
+
+    <section class="profile-section">
+        <h4>Организация</h4>
+        <hr>
+        <label>Название <input value="@ViewBag.OrganizationName" class="form-control mb-3" readonly></label>
+        <label>ОГРН <input value="@ViewBag.OrganizationOGRN" class="form-control mb-3" readonly></label>
+        <label>Почта <input value="@ViewBag.OrganizationEmail" class="form-control mb-3" readonly></label>
+
+    </section>
+
+    <section class="profile-section">
+        <div style="display: flex; justify-content: space-between;">
+            <h4>Подписка</h4>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Subscription">Изменить</a>
+        </div>
+
+        <hr>
+        <h5>@ViewBag.SubscriptionName</h5>
+        <p>@ViewBag.SubscriptionDescription</p>
+    </section>
+</div>
 
