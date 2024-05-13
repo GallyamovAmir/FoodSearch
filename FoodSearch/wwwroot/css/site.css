@@ -152,7 +152,28 @@ p {
    
 }
 
+.header-container {
+    display: grid;
+    margin: 30px 8px 0 8px;
+    grid-template-columns: 40px 1fr;
+    gap: 12px;
+    height: 48px;
+    grid-template-areas:
+        "Logo Text Text"
+        "Logo Text Text";
+    padding-left: 16px;
+    padding-right: 12px;
+    text-decoration: none;
+    align-content: center;
+}
 
+.logo {
+    grid-area: Logo;
+}
+
+.logo-text {
+    grid-area: Text;
+}
 
 body {
     margin-bottom: 60px;

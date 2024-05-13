@@ -95,7 +95,7 @@ $('#acceptAddition').on('show.bs.modal', function (event) {
 });
 
 // Добавим обработчик для кнопок "Добавить", чтобы получить информацию о товаре
-$('#acceptAddition').click(function () {
+$('#cartbutton').click(function () {
     var productName = $(this).data('product-name');
     var productPrice = $(this).data('product-price');
     var productImage = $(this).data('product-image');

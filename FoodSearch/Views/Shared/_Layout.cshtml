@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FoodSearch.styles.css" asp-append-version="true" />
+    <link rel="shortcut icon" href="/favicon.ico" asp-append-version="true" />
 
 </head>
 <body>
@@ -57,11 +58,15 @@
 
     <div class="container">
         <div class="sidebar">
-            <div class="sidebar-header">
+            <div class="sidebar-header" style="height: 100px">
 
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="sidebar-header-item">
-                    <p style="font-size:24px; line-height:0;">FoodSearch</p>
-                    <p style="font-size:12px; margin: 0;">Сервис сравнения цен на продукты</p>
+                <a class="header-container" asp-area="" asp-controller="Home" asp-action="Index">
+                    <div class="logo navigation-item-icon">
+                        <img src="/images/icons/logo.png" alt="Alternate Text" style="height:40px; width:40px; border-radius:8px;" />
+                    </div>
+                    <div class="logo-text navigation-item-text">
+                        <span style="font-size:24px; line-height:0;">FoodSearch</span> <br><span style="font-size:12px; line-height:0; margin: 0;">Сервис сравнения цен на продукты</span>
+                    </div>
                 </a>
 
             </div>
