@@ -128,7 +128,7 @@ namespace FoodSearch.Controllers
                 ViewBag.OrganizationName = organization?.Name;
                 ViewBag.OrganizationOGRN = organization?.OGRN;
                 ViewBag.OrganizationEmail = organization?.EMail;
-
+                ViewBag.SubscriptionId = subscription?.Id;
                 ViewBag.SubscriptionName = subscription?.Name;
                 ViewBag.SubscriptionDescription = subscription?.Description;
                 // и т.д.

@@ -59,12 +59,12 @@ namespace FoodSearch.Controllers
             if (user != null)
             {
 
-                string subscriptionValue = subscription.HasValue ? subscription.Value.ToString() : "";
+                int subscriptionValue = (int)user.SubscriptionId;
                 var claims = new List<Claim>
-                {
-                    new(ClaimTypes.Name, login),
-                    new(ClaimTypes.Role, subscriptionValue)
-                };
+        {
+            new Claim(ClaimTypes.Name, login),
+            new Claim(ClaimTypes.Role, subscriptionValue.ToString()) // Преобразуем subscriptionValue в строку
+        };
 
                 // создаем объект ClaimsIdentity
                 ClaimsIdentity claimsIdentity = new(claims, "ApplicationCookie",
@@ -95,7 +95,7 @@ namespace FoodSearch.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        
+
 
 
 

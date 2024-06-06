@@ -13,15 +13,15 @@ namespace FoodSearch.Controllers
             base.OnActionExecuting(context);
 
             // Получаем имя пользователя из утверждений
-            var usernameClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
-            if (usernameClaim != null)
+            var userroleClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
+            if (userroleClaim != null && int.TryParse(userroleClaim.Value, out int userRole))
             {
-                ViewBag.UserName = usernameClaim.Value;
-
-                ViewBag.UserInitial = usernameClaim.Value[..2].ToUpper();
+                ViewBag.userSubscription = userRole;
             }
 
 
         }
     }
+
+
 }

@@ -5,25 +5,31 @@ using System.Threading.Tasks;
 
 namespace FoodSearch
 {
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-    public class MobileDeviceMiddleware(RequestDelegate next)
+    public class MobileDeviceMiddleware
     {
-        private readonly RequestDelegate _next = next;
-        private bool _redirected = false;
+        private readonly RequestDelegate _next;
+        private static bool _redirected = false;
+
+        public MobileDeviceMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
 
         public async Task Invoke(HttpContext httpContext)
         {
-            if (!_redirected && IsMobileDevice(httpContext))
+            var isMobile = IsMobileDevice(httpContext);
+            httpContext.Items["IsMobileDevice"] = isMobile;
+
+            if (isMobile && !_redirected)
             {
                 _redirected = true;
                 httpContext.Response.Redirect("../Home/MobileError");
                 return;
             }
 
-            // Продолжайте выполнение запроса, если это не мобильное устройство или если уже началось перенаправление.
             await _next(httpContext);
 
-            // Восстановление флага после обработки запроса
+            // Reset the flag after processing the request
             _redirected = false;
         }
 
@@ -36,7 +42,6 @@ namespace FoodSearch
         }
     }
 
-    // Extension method used to add the middleware to the HTTP request pipeline.
     public static class MobileDeviceMiddlewareExtensions
     {
         public static IApplicationBuilder UseMobileDeviceMiddleware(this IApplicationBuilder builder)
