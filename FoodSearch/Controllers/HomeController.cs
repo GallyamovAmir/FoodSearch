@@ -3,9 +3,12 @@ using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using OpenQA.Selenium.Support.UI;
 
 namespace FoodSearch.Controllers
 {
@@ -244,66 +247,84 @@ namespace FoodSearch.Controllers
 
             _logger.LogInformation($"Attempting to load HTML from: {url}");
 
-            var web = new HtmlWeb();
-            var htmlDoc = web.Load(url);
+            // Опции для настройки браузера
+            var options = new ChromeOptions();
+            options.AddArgument("--headless"); // Запуск браузера в фоновом режиме
 
-            if (htmlDoc == null)
+            // Создаем экземпляр сервиса ChromeDriver
+            var service = ChromeDriverService.CreateDefaultService();
+            service.HideCommandPromptWindow = true; // Скрыть окно командной строки
+
+            // Создаем экземпляр ChromeDriver с использованием наших опций и сервиса
+            using (var driver = new ChromeDriver(service, options))
             {
-                _logger.LogInformation("Failed to load HTML document");
-                return null;
-            }
+                // Открываем страницу
+                driver.Navigate().GoToUrl(url);
 
-            var products = new List<Product>();
+                // Ожидаем, пока страница не загрузится полностью
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(0));
+                wait.Until(d => d.FindElement(By.TagName("body")));
 
-            var productNodes = htmlDoc.DocumentNode.SelectNodes("//div[contains(@class, 'catalog-2-level-product-card')]");
+                // Получаем HTML код страницы
+                var html = driver.PageSource;
 
-            if (productNodes != null)
-            {
-                // Добавляем счетчик, чтобы проходить только один раз
-                int counter = 0;
+                // Используем HtmlAgilityPack для парсинга HTML
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(html);
 
-                foreach (var productNode in productNodes)
+                // Теперь можно искать узлы товаров
+                var products = new List<Product>();
+
+                var productNodes = htmlDoc.DocumentNode.SelectNodes(".//div[contains(@class, 'catalog-2-level-product-card')]");
+                if (productNodes != null)
                 {
-                    if (counter >= 1)
-                    {
-                        break; // Прерываем цикл после первого прохода
-                    }
+                    // Добавляем счетчик, чтобы проходить только один раз
+                    int counter = 0;
 
-                    var product = new Product
+                    foreach (var productNode in productNodes)
                     {
-                        // Извлекаем данные о товаре из HTML узлов
-                        Name = productNode.SelectSingleNode(".//span[contains(@class, 'product-card-name__text')]")?.InnerText.Trim(),
-                        ImageSource = productNode.SelectSingleNode(".//img[contains(@class, 'product-card-photo__image')]")?.GetAttributeValue("src", "")
-                    };
-                    var metroBaseUrl = "https://online.metro-cc.ru";
-                    product.Url = metroBaseUrl + (productNode.SelectSingleNode(".//a[contains(@class, 'product-card-photo__link')]")?.GetAttributeValue("href", "") ?? "");
-                    var priceNode = productNode.SelectSingleNode(".//span[contains(@class, 'product-price__sum-rubles')]");
-                    if (priceNode != null)
-                    {
-                        var priceText = priceNode.InnerText.Trim();
-                        if (!string.IsNullOrEmpty(priceText) && decimal.TryParse(priceText, out decimal price))
+                        if (counter >= 1)
                         {
-                            product.Price = price;
-                        }
-                        else
-                        {
-                            _logger.LogWarning($"Failed to parse price for product: {product.Name}");
-                            continue; // Пропускаем текущую итерацию цикла и переходим к следующей
+                            break; // Прерываем цикл после первого прохода
                         }
 
-                        product.Description = "Нет описания";
-                        product.FactotyId = 1;
+                        var product = new Product
+                        {
+                            // Извлекаем данные о товаре из HTML узлов
+                            Name = productNode.SelectSingleNode(".//span[contains(@class, 'product-card-name__text')]")?.InnerText.Trim(),
+                            ImageSource = productNode.SelectSingleNode(".//img[contains(@class, 'product-card-photo__image')]")?.GetAttributeValue("src", "")
+                        };
+                        var metroBaseUrl = "https://online.metro-cc.ru";
+                        product.Url = metroBaseUrl + (productNode.SelectSingleNode(".//a[contains(@class, 'product-card-photo__link')]")?.GetAttributeValue("href", "") ?? "");
+                        var priceNode = productNode.SelectSingleNode(".//span[contains(@class, 'product-price__sum-rubles')]");
+                        if (priceNode != null)
+                        {
+                            var priceText = priceNode.InnerText.Trim();
+                            if (!string.IsNullOrEmpty(priceText) && decimal.TryParse(priceText, out decimal price))
+                            {
+                                product.Price = price;
+                            }
+                            else
+                            {
+                                _logger.LogWarning($"Failed to parse price for product: {product.Name}");
+                                continue; // Пропускаем текущую итерацию цикла и переходим к следующей
+                            }
 
-                        products.Add(product);
+                            product.Description = "Нет описания";
+                            product.FactotyId = 1;
+
+                            products.Add(product);
+                        }
+
+                        // Увеличиваем счетчик после каждой итерации
+                        counter++;
                     }
-
-                    // Увеличиваем счетчик после каждой итерации
-                    counter++;
                 }
-            }
 
-            return products;
+                return products;
+            }
         }
+
 
         // Метод для парсинга второго сайта
         private List<Product> SelgrosParser(string query)
@@ -314,6 +335,7 @@ namespace FoodSearch.Controllers
             _logger.LogInformation($"Attempting to load HTML from: {url}");
 
             var web = new HtmlWeb();
+
             var htmlDoc = web.Load(url);
 
             if (htmlDoc == null)

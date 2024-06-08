@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace FoodSearch.Controllers
 {
-    public class AuthenticationController : Controller
+    public class AuthenticationController : BaseController
     {
 
         private readonly FoodSearchContext _context;

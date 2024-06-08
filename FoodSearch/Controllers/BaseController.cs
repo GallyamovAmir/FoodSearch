@@ -19,6 +19,12 @@ namespace FoodSearch.Controllers
                 ViewBag.userSubscription = userRole;
             }
 
+            var usernameClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+            if (usernameClaim != null)
+            {
+                ViewBag.userName = usernameClaim.Value;
+            }
+
 
         }
     }

@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<FoodSearch.Models.Product>
 @{
+    ViewData["Title"] = "Страница производителя";
 }
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Добавить</a>
+</p>
+<div class="horizontal-scroll">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Название
+                </th>
+                <th>
+                    Описание
+                </th>
+                <th>
+                    Источник изображения
+                </th>
+                <th>
+                    URL
+                </th>
+                <th>
+                    Цена
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImageSource)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Url)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

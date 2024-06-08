@@ -1,0 +1,54 @@
+﻿@model FoodSearch.Models.Product
+
+@{
+    ViewData["Title"] = "Редактирование позиции";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Название</label><br>
+                <input asp-for="Name" class="control-input" type="text" maxlength="100"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Описание</label><br>
+                <input asp-for="Description" class="control-input" type="text" maxlength="200" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageSource" class="control-label">Источник изображения</label><br>
+                <input asp-for="ImageSource" class="control-input" type="text" maxlength="150" />
+                <span asp-validation-for="ImageSource" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Url" class="control-label">URL</label><br>
+                <input asp-for="Url" class="control-input" type="text" maxlength="150" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Цена</label><br>
+                <input asp-for="Price" class="control-input" maxlength="10" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="MainPage">Назад</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

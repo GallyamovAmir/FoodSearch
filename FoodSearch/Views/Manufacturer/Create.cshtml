@@ -1,0 +1,48 @@
+﻿@model FoodSearch.Models.Product
+
+@{
+    ViewData["Title"] = "Создание позиции";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Name" class="control-label" type="text" maxlength="100">Название</input>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Description" class="control-input" type="text" maxlength="200" placeholder="Описание" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="ImageSource" class="control-input" type="text" maxlength="150" placeholder="Источник изображения" />
+                <span asp-validation-for="ImageSource" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Url" class="control-input" type="text" maxlength="150" placeholder="URL" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Price" class="control-input" maxlength="10" placeholder="Цена" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="MainPage">Назад</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
