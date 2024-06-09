@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
-using FoodSearch.Models;
+﻿using FoodSearch.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FoodSearch.Controllers
 {

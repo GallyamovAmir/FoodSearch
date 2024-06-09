@@ -1,7 +1,4 @@
 ﻿using DeviceDetectorNET;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
 
 namespace FoodSearch
 {

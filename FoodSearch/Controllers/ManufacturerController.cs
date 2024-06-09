@@ -1,8 +1,5 @@
-﻿using DeviceDetectorNET.Class;
-using FoodSearch.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using FoodSearch.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 

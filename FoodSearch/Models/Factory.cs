@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FoodSearch.Models;
+﻿namespace FoodSearch.Models;
 
 public partial class Factory
 {

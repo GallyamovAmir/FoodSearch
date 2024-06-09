@@ -1,14 +1,10 @@
 using FoodSearch.Models;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using OpenQA.Selenium.Support.UI;
+using System.Diagnostics;
 
 namespace FoodSearch.Controllers
 {
