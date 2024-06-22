@@ -103,8 +103,14 @@ namespace FoodSearch.Controllers
                 // Устанавливаем позицию потока на начало
                 stream.Position = 0;
 
+                // Удаляем корзину фиксации пользователя
+                _context.FixationItems.RemoveRange(cartItems);
+                _context.SaveChanges();
+
                 // Возвращаем Excel-файл как поток данных
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Отчет.xlsx");
+
+
             }
         }
 

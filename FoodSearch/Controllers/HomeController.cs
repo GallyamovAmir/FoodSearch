@@ -28,6 +28,11 @@ namespace FoodSearch.Controllers
             return View();
         }
 
+        public IActionResult ORGNException()
+        {
+            return View();
+        }
+
         public IActionResult SecondStepRegistration()
         {
             return View();
@@ -112,7 +117,8 @@ namespace FoodSearch.Controllers
             _logger.LogInformation("Organization with such OGRN does not exist");
 
             // Возвращаем сообщение об ошибке
-            return Json(new { Error = "Organization with such OGRN does not exist" });
+            ViewBag.OGRNLogin = 1;
+            return View("ORGNException");
         }
 
 
@@ -198,6 +204,7 @@ namespace FoodSearch.Controllers
             // Поиск товаров в базе данных по названию
             var products = _context.Products
     .Where(p => searchTerms.All(term => p.Name.ToLower().Contains(term)))
+    .OrderBy(p => p.Price)
     .ToList();
 
             // Если товары найдены в базе данных, передайте их в представление

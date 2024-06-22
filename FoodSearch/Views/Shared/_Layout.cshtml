@@ -1,6 +1,7 @@
 ﻿@{
     int userSubscription = ViewBag.userSubscription ?? 0; // Если ViewBag.UserRole не установлено, значение по умолчанию будет 0
     bool isMobileDevice = ViewContext.HttpContext.Items["IsMobileDevice"] as bool? ?? false;
+    int exceptionORGNLogin;
 }
 
 <!DOCTYPE html>
@@ -135,14 +136,17 @@
                             </div>
                             <div class="navigation-item-text"> Аналитика <br><span style="font-size:11px; color: rgb(21 128 61)">Скоро</span></div>
                         </a>
-                        <a class="sidebar-navigation-item" asp-area="" asp-controller="Account" asp-action="Fixation">
-                            <div class="navigation-item-icon">
-                                <img src="/images/icons/fixation.png" />
-                            </div>
-                            <div class="navigation-item-text"> Фиксация</div>
-                        </a>
+                        @if (userSubscription == 2)
+                        {
+                            <a class="sidebar-navigation-item" asp-area="" asp-controller="Account" asp-action="Fixation">
+                                <div class="navigation-item-icon">
+                                    <img src="/images/icons/fixation.png" />
+                                </div>
+                                <div class="navigation-item-text"> Фиксация</div>
+                            </a>
+                        }
 
-                    }
+                }
                 </div>
                 <div class="sidebar-footer">
                     @if (!User.Identity.IsAuthenticated)

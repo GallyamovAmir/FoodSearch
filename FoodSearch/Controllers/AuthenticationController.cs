@@ -23,6 +23,7 @@ namespace FoodSearch.Controllers
         }
 
 
+
         /// <summary>
         ///  Логика функции авторизации
         /// </summary>
@@ -51,7 +52,8 @@ namespace FoodSearch.Controllers
             // если пользователь не найден, отправляем статусный код 401
             if (user is null)
             {
-                return Unauthorized("Недостаточно прав");
+                ViewBag.OGRNLogin = 2;
+                return RedirectToAction("ORGNException", "Home");
             }
 
             if (user != null)
