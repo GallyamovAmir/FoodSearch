@@ -388,7 +388,7 @@ namespace FoodSearch.Controllers
                         }
 
                         product.Description = "Нет описания";
-                        product.FactotyId = 1;
+                        product.FactotyId = 2;
 
                         products.Add(product);
                     }

@@ -32,11 +32,11 @@
                             <h5>@product.Name</h5>
                             @if (product.Price == minPrice)
                             {
-                                <span class="badge" style="color:black">Выгоднее всего</span>
+                                <span class="badge" style="color:white; background-color:#5CAF2C;  border-radius:5px;">Выгоднее всего</span>
                             }
                             @if (product.FactotyId != 1 && product.FactotyId != 2)
                             {
-                                <span class="badge" style="color:black">Отечественный производитель</span>
+                                <span class="badge" style="color:white; background-color:#5CAF2C; border-radius:5px;">Отечественный производитель</span>
                             }
                             <p><a target="_blank" href="@product.Url">@product.Url</a></p>
                             <input type="hidden" class="form-control" value="@product.Id">
